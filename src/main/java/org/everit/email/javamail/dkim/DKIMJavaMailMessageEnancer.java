@@ -29,7 +29,7 @@ import net.markenwerk.utils.mail.dkim.DkimSigner;
  * Implementation of {@link JavaMailMessageEnhancer} that enhance {@link MimeMessage} with DKIM
  * signature.
  */
-public class MessageDKIMSigner implements JavaMailMessageEnhancer {
+public class DKIMJavaMailMessageEnancer implements JavaMailMessageEnhancer {
 
   private final DkimSigner dkimSigner;
 
@@ -37,16 +37,16 @@ public class MessageDKIMSigner implements JavaMailMessageEnhancer {
    * Constructor.
    *
    * @param config
-   *          the {@link MessageDKIMSignerConfig}.
+   *          the {@link DKIMJavaMailMessageEnhancerConfig}.
    * @throws NullPointerException
    *           if one of required configuration field is <code>null</code>. Required fields:
-   *           {@link MessageDKIMSignerConfig#signingDomain},
-   *           {@link MessageDKIMSignerConfig#selector}, {@link MessageDKIMSignerConfig#privateKey},
-   *           {@link MessageDKIMSignerConfig#additionalHeadersToSign},
-   *           {@link MessageDKIMSignerConfig#excludedHeadersFromSign},
-   *           {@link MessageDKIMSignerConfig#signingAlgorithm}.
+   *           {@link DKIMJavaMailMessageEnhancerConfig#signingDomain},
+   *           {@link DKIMJavaMailMessageEnhancerConfig#selector}, {@link DKIMJavaMailMessageEnhancerConfig#privateKey},
+   *           {@link DKIMJavaMailMessageEnhancerConfig#additionalHeadersToSign},
+   *           {@link DKIMJavaMailMessageEnhancerConfig#excludedHeadersFromSign},
+   *           {@link DKIMJavaMailMessageEnhancerConfig#signingAlgorithm}.
    */
-  public MessageDKIMSigner(final MessageDKIMSignerConfig config) {
+  public DKIMJavaMailMessageEnancer(final DKIMJavaMailMessageEnhancerConfig config) {
     Objects.requireNonNull(config, "config cannot be null");
     Objects.requireNonNull(config.signingDomain, "signingDomain cannot be null");
     Objects.requireNonNull(config.selector, "selector cannot be null");

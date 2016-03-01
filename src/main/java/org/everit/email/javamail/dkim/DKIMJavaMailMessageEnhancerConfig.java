@@ -25,7 +25,7 @@ import net.markenwerk.utils.mail.dkim.SigningAlgorithm;
 /**
  * Contains configuration information to DKIM signing.
  */
-public class MessageDKIMSignerConfig {
+public class DKIMJavaMailMessageEnhancerConfig {
 
   /**
    * Additional headers that should be signed if available. These headers are added to the ones
@@ -85,61 +85,62 @@ public class MessageDKIMSignerConfig {
    */
   public boolean zParam = false;
 
-  public MessageDKIMSignerConfig additionalHeadersToSign(
+  public DKIMJavaMailMessageEnhancerConfig additionalHeadersToSign(
       final Set<String> additionalHeadersToSign) {
     this.additionalHeadersToSign = additionalHeadersToSign;
     return this;
   }
 
-  public MessageDKIMSignerConfig bodyCanonicalization(
+  public DKIMJavaMailMessageEnhancerConfig bodyCanonicalization(
       final Canonicalization bodyCanonicalization) {
     this.bodyCanonicalization = bodyCanonicalization;
     return this;
   }
 
-  public MessageDKIMSignerConfig excludedHeadersFromSign(
+  public DKIMJavaMailMessageEnhancerConfig excludedHeadersFromSign(
       final Set<String> excludedHeadersFromSign) {
     this.excludedHeadersFromSign = excludedHeadersFromSign;
     return this;
   }
 
-  public MessageDKIMSignerConfig headerCanonicalization(
+  public DKIMJavaMailMessageEnhancerConfig headerCanonicalization(
       final Canonicalization headerCanonicalization) {
     this.headerCanonicalization = headerCanonicalization;
     return this;
   }
 
-  public MessageDKIMSignerConfig identity(final String identity) {
+  public DKIMJavaMailMessageEnhancerConfig identity(final String identity) {
     this.identity = identity;
     return this;
   }
 
-  public MessageDKIMSignerConfig lengthParam(final Boolean lengthParam) {
+  public DKIMJavaMailMessageEnhancerConfig lengthParam(final Boolean lengthParam) {
     this.lengthParam = lengthParam;
     return this;
   }
 
-  public MessageDKIMSignerConfig privateKey(final RSAPrivateKey privateKey) {
+  public DKIMJavaMailMessageEnhancerConfig privateKey(final RSAPrivateKey privateKey) {
     this.privateKey = privateKey;
     return this;
   }
 
-  public MessageDKIMSignerConfig selector(final String selector) {
+  public DKIMJavaMailMessageEnhancerConfig selector(final String selector) {
     this.selector = selector;
     return this;
   }
 
-  public MessageDKIMSignerConfig signingAlgorithm(final SigningAlgorithm signingAlgorithm) {
+  public DKIMJavaMailMessageEnhancerConfig signingAlgorithm(
+      final SigningAlgorithm signingAlgorithm) {
     this.signingAlgorithm = signingAlgorithm;
     return this;
   }
 
-  public MessageDKIMSignerConfig signingDomain(final String signingDomain) {
+  public DKIMJavaMailMessageEnhancerConfig signingDomain(final String signingDomain) {
     this.signingDomain = signingDomain;
     return this;
   }
 
-  public MessageDKIMSignerConfig zParam(final Boolean zParam) {
+  public DKIMJavaMailMessageEnhancerConfig zParam(final Boolean zParam) {
     this.zParam = zParam;
     return this;
   }

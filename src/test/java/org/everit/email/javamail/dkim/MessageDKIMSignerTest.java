@@ -172,8 +172,8 @@ public class MessageDKIMSignerTest {
         ? null : receivedMessages[receivedMessages.length - 1];
   }
 
-  private MessageDKIMSignerConfig getMessageDKIMSignerConfig() {
-    return new MessageDKIMSignerConfig()
+  private DKIMJavaMailMessageEnhancerConfig getMessageDKIMSignerConfig() {
+    return new DKIMJavaMailMessageEnhancerConfig()
         .bodyCanonicalization(Canonicalization.RELAXED)
         .headerCanonicalization(Canonicalization.SIMPLE)
         .identity("foo@absdem.org")
@@ -204,7 +204,7 @@ public class MessageDKIMSignerTest {
   public void testMessageDKIMSigner() throws MessagingException {
     List<JavaMailMessageEnhancer> enhancers = new ArrayList<>();
     JavaMailMessageEnhancer javaMailMessageEnhancer =
-        new MessageDKIMSigner(getMessageDKIMSignerConfig());
+        new DKIMJavaMailMessageEnancer(getMessageDKIMSignerConfig());
     enhancers.add(javaMailMessageEnhancer);
     EmailSender emailSender = new JavaMailEmailSender(createSession(), enhancers);
 
