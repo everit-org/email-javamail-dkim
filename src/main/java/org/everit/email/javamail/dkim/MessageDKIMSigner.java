@@ -42,8 +42,8 @@ public class MessageDKIMSigner implements JavaMailMessageEnhancer {
    *           if one of required configuration field is <code>null</code>. Required fields:
    *           {@link MessageDKIMSignerConfig#signingDomain},
    *           {@link MessageDKIMSignerConfig#selector}, {@link MessageDKIMSignerConfig#privateKey},
-   *           {@link MessageDKIMSignerConfig#headerCanonicalization},
-   *           {@link MessageDKIMSignerConfig#bodyCanonicalization},
+   *           {@link MessageDKIMSignerConfig#additionalHeadersToSign},
+   *           {@link MessageDKIMSignerConfig#excludedHeadersFromSign},
    *           {@link MessageDKIMSignerConfig#signingAlgorithm}.
    */
   public MessageDKIMSigner(final MessageDKIMSignerConfig config) {
@@ -51,17 +51,37 @@ public class MessageDKIMSigner implements JavaMailMessageEnhancer {
     Objects.requireNonNull(config.signingDomain, "signingDomain cannot be null");
     Objects.requireNonNull(config.selector, "selector cannot be null");
     Objects.requireNonNull(config.privateKey, "privateKey cannot be null");
-    Objects.requireNonNull(config.headerCanonicalization, "headerCanonicalization cannot be null");
-    Objects.requireNonNull(config.bodyCanonicalization, "bodyCanonicalization cannot be null");
-    Objects.requireNonNull(config.signingAlgorithm, "signingAlgorithm cannot be null");
+    Objects.requireNonNull(config.additionalHeadersToSign, "Additional headers set cannot be null");
+    Objects.requireNonNull(config.excludedHeadersFromSign, "Excluded headers set cannot be null");
 
     dkimSigner = new DkimSigner(config.signingDomain, config.selector, config.privateKey);
-    dkimSigner.setIdentity(config.identity);
-    dkimSigner.setHeaderCanonicalization(config.headerCanonicalization);
-    dkimSigner.setBodyCanonicalization(config.bodyCanonicalization);
-    dkimSigner.setSigningAlgorithm(config.signingAlgorithm);
+
+    if (config.identity != null) {
+      dkimSigner.setIdentity(config.identity);
+    }
+
+    if (config.headerCanonicalization != null) {
+      dkimSigner.setHeaderCanonicalization(config.headerCanonicalization);
+    }
+
+    if (config.bodyCanonicalization != null) {
+      dkimSigner.setBodyCanonicalization(config.bodyCanonicalization);
+    }
+
+    if (config.signingAlgorithm != null) {
+      dkimSigner.setSigningAlgorithm(config.signingAlgorithm);
+    }
+
     dkimSigner.setLengthParam(config.lengthParam);
     dkimSigner.setZParam(config.zParam);
+
+    for (String header : config.additionalHeadersToSign) {
+      dkimSigner.addHeaderToSign(header);
+    }
+
+    for (String header : config.excludedHeadersFromSign) {
+      dkimSigner.removeHeaderToSign(header);
+    }
   }
 
   @Override

@@ -16,6 +16,8 @@
 package org.everit.email.javamail.dkim;
 
 import java.security.interfaces.RSAPrivateKey;
+import java.util.Collections;
+import java.util.Set;
 
 import net.markenwerk.utils.mail.dkim.Canonicalization;
 import net.markenwerk.utils.mail.dkim.SigningAlgorithm;
@@ -26,9 +28,21 @@ import net.markenwerk.utils.mail.dkim.SigningAlgorithm;
 public class MessageDKIMSignerConfig {
 
   /**
+   * Additional headers that should be signed if available. These headers are added to the ones
+   * defined as default headers in DkimSigner class.
+   */
+  public Set<String> additionalHeadersToSign = Collections.emptySet();
+
+  /**
    * The canonicalization to be used for the body. More information in RFC4871.
    */
   public Canonicalization bodyCanonicalization;
+
+  /**
+   * Headers that should be excluded from the signature. By default, the headers that are defined in
+   * the DkimSigner class and the ones defined in additionalHeadersToSign configuration are used.
+   */
+  public Set<String> excludedHeadersFromSign = Collections.emptySet();
 
   /**
    * The canonicalization to be used for the header. More information in RFC4871.
@@ -71,9 +85,21 @@ public class MessageDKIMSignerConfig {
    */
   public boolean zParam = false;
 
+  public MessageDKIMSignerConfig additionalHeadersToSign(
+      final Set<String> additionalHeadersToSign) {
+    this.additionalHeadersToSign = additionalHeadersToSign;
+    return this;
+  }
+
   public MessageDKIMSignerConfig bodyCanonicalization(
       final Canonicalization bodyCanonicalization) {
     this.bodyCanonicalization = bodyCanonicalization;
+    return this;
+  }
+
+  public MessageDKIMSignerConfig excludedHeadersFromSign(
+      final Set<String> excludedHeadersFromSign) {
+    this.excludedHeadersFromSign = excludedHeadersFromSign;
     return this;
   }
 
